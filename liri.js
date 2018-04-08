@@ -28,6 +28,7 @@ switch (arg2) {
   case 'spotify-this-song':
     if (arg3) {
       searchSpotify(arg3);
+      addToRandom(arg2, arg3);
     } else {
       searchSpotify('The Sign Ace of Base');
     }
@@ -35,6 +36,7 @@ switch (arg2) {
   case 'movie-this':
     if (arg3) {
       movieSearch(arg3);
+      addToRandom(arg2, arg3);
     } else {
       movieSearch('Mr Nobody');
     }
@@ -51,7 +53,7 @@ switch (arg2) {
 function myTweets() {
   client.get('statuses/user_timeline', function (error, tweets, response) {
     if (error) {
-      console.log(`Sorry we couldn't retrieve your tweets`);
+      console.log('Twitter Error: \n' + error);
     }
     if (!error) {
       console.log(`\nTweets by ${tweets[0].user.screen_name}:\n`);
@@ -81,10 +83,9 @@ function searchSpotify(a) {
       console.log(`Track Title: ${data.tracks.items[0].name}`);
       console.log(`Link: ${data.tracks.items[0].external_urls.spotify}`);
       console.log(`Album: ${data.tracks.items[0].album.name}`);
-      addToRandom(arg2, a);
     })
     .catch(function (err) {
-      console.log('Error occurred: ' + err);
+      console.log('Spotify Error: \n' + err);
     });
 };
 
@@ -104,10 +105,13 @@ function movieSearch(a) {
       console.log('Language(s): ' + JSON.parse(body).Language);
       console.log('Plot: ' + JSON.parse(body).Plot);
       console.log('Actors: ' + JSON.parse(body).Actors);
-      addToRandom(arg2, a);
     }
     if (a === 'Mr Nobody') {
       console.log(`\nIf you haven't watched "Mr. Nobody," then you should: http://www.imdb.com/title/tt0485947/\nIt's on Netflix!`);
+    }
+
+    if(error){
+      console.log('Movie Error: \n' + error);
     }
   });
 };
@@ -116,20 +120,15 @@ function doFunction() {
   fs.readFile("random.txt", "utf8", function (error, data) {
     if (error) {
       return console.log('Read Error' + error);
-    }
+    };
     var random = data.split(",");
     var randNum = Math.round(Math.random() * (random.length - 3));
     if ((randNum % 2 === 0) && (randNum >= 0)) {
       a = randNum;
     } else {
       a = randNum + 1;
-    }
+    };
     var b = a + 1;
-    console.log(random[a]);
-    console.log(random[b]);
-    console.log(a);
-    console.log(b);
-    console.log(random.length);
     switch (random[a]) {
       case 'my-tweets':
         myTweets();
@@ -150,8 +149,8 @@ function doFunction() {
         break;
       default:
         console.log('\nInvalid Entry. "my-tweets", "spotify-this-song", "movie-this" or "do-what-it-says"');
-    }
-  })
+    };
+  });
 };
 
 function addToRandom(x, y) {
@@ -160,7 +159,7 @@ function addToRandom(x, y) {
       if (error) {
         console.log('Write Error: ' + error);
       } else {
-        console.log('\nAdded to random.txt');
+        console.log('- Added to random.txt!');
       }
     });
   };
