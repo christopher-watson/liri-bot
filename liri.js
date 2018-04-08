@@ -20,8 +20,6 @@ var spotify = new Spotify({
 
 var arg2 = process.argv[2];
 var arg3 = process.argv.splice(3, process.argv.length - 1).join(' ');
-var doArray1 = 0;
-var doArray2 = 1;
 
 switch (arg2) {
   case 'my-tweets':
@@ -83,6 +81,7 @@ function searchSpotify(a) {
       console.log(`Track Title: ${data.tracks.items[0].name}`);
       console.log(`Link: ${data.tracks.items[0].external_urls.spotify}`);
       console.log(`Album: ${data.tracks.items[0].album.name}`);
+      addToRandom(arg2, a);
     })
     .catch(function (err) {
       console.log('Error occurred: ' + err);
@@ -105,6 +104,7 @@ function movieSearch(a) {
       console.log('Language(s): ' + JSON.parse(body).Language);
       console.log('Plot: ' + JSON.parse(body).Plot);
       console.log('Actors: ' + JSON.parse(body).Actors);
+      addToRandom(arg2, a);
     }
     if (a === 'Mr Nobody') {
       console.log(`\nIf you haven't watched "Mr. Nobody," then you should: http://www.imdb.com/title/tt0485947/\nIt's on Netflix!`);
@@ -115,25 +115,35 @@ function movieSearch(a) {
 function doFunction() {
   fs.readFile("random.txt", "utf8", function (error, data) {
     if (error) {
-      return console.log('Error' + error);
+      return console.log('Read Error' + error);
     }
     var random = data.split(",");
-    console.log(random[doArray1]);
-    console.log(random[doArray2]);
-    switch (random[doArray1]) {
+    var randNum = Math.round(Math.random() * (random.length - 3));
+    if ((randNum % 2 === 0) && (randNum >= 0)) {
+      a = randNum;
+    } else {
+      a = randNum + 1;
+    }
+    var b = a + 1;
+    console.log(random[a]);
+    console.log(random[b]);
+    console.log(a);
+    console.log(b);
+    console.log(random.length);
+    switch (random[a]) {
       case 'my-tweets':
         myTweets();
         break;
       case 'spotify-this-song':
-        if (random[doArray2]) {
-          searchSpotify(random[doArray2]);
+        if (random[b]) {
+          searchSpotify(random[b]);
         } else {
           searchSpotify('The Sign Ace of Base');
         }
         break;
       case 'movie-this':
-        if (random[doArray2]) {
-          movieSearch(random[doArray2]);
+        if (random[b]) {
+          movieSearch(random[b]);
         } else {
           movieSearch('Mr Nobody');
         }
@@ -144,6 +154,14 @@ function doFunction() {
   })
 };
 
-function addToDo(){
-
+function addToRandom(x, y) {
+  if (x !== 'do-what-it-says') {
+    fs.appendFile('random.txt', x + ',' + y + ',', function (error) {
+      if (error) {
+        console.log('Write Error: ' + error);
+      } else {
+        console.log('\nAdded to random.txt');
+      }
+    });
+  };
 };
