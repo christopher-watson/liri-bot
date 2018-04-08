@@ -1,6 +1,7 @@
 require("dotenv").config();
 var keys = require('./keys');
 var request = require("request");
+var fs = require("fs");
 var Twitter = require('twitter');
 var Spotify = require('node-spotify-api');
 var client = new Twitter({
@@ -19,6 +20,8 @@ var spotify = new Spotify({
 
 var arg2 = process.argv[2];
 var arg3 = process.argv.splice(3, process.argv.length - 1).join(' ');
+var doArray1 = 0;
+var doArray2 = 1;
 
 switch (arg2) {
   case 'my-tweets':
@@ -38,10 +41,12 @@ switch (arg2) {
       movieSearch('Mr Nobody');
     }
     break;
+  case 'do-what-it-says':
+    doFunction();
+    break;
   default:
     console.log('\nInvalid Entry. "my-tweets", "spotify-this-song", "movie-this" or "do-what-it-says"');
 }
-
 
 
 // RETURNS LAST 20 TWEETS FROM TIMELINE
@@ -72,7 +77,6 @@ function searchSpotify(a) {
       query: a
     })
     .then(function (data) {
-      // console.log('arg3 ' + arg3);
       console.log(`\nSpotify Search`);
       console.log(`--------------\n`);
       console.log(`Artist: ${data.tracks.items[0].album.artists[0].name}`);
@@ -91,7 +95,6 @@ function movieSearch(a) {
   request("http://www.omdbapi.com/?t=" + a + "&y=&plot=short&apikey=trilogy", function (error, response, body) {
 
     if (!error && response.statusCode === 200) {
-      // console.log(JSON.parse(body));
       console.log(`\nMovie Search`);
       console.log(`------------\n`);
       console.log('Title: ' + JSON.parse(body).Title);
@@ -107,4 +110,40 @@ function movieSearch(a) {
       console.log(`\nIf you haven't watched "Mr. Nobody," then you should: http://www.imdb.com/title/tt0485947/\nIt's on Netflix!`);
     }
   });
+};
+
+function doFunction() {
+  fs.readFile("random.txt", "utf8", function (error, data) {
+    if (error) {
+      return console.log('Error' + error);
+    }
+    var random = data.split(",");
+    console.log(random[doArray1]);
+    console.log(random[doArray2]);
+    switch (random[doArray1]) {
+      case 'my-tweets':
+        myTweets();
+        break;
+      case 'spotify-this-song':
+        if (random[doArray2]) {
+          searchSpotify(random[doArray2]);
+        } else {
+          searchSpotify('The Sign Ace of Base');
+        }
+        break;
+      case 'movie-this':
+        if (random[doArray2]) {
+          movieSearch(random[doArray2]);
+        } else {
+          movieSearch('Mr Nobody');
+        }
+        break;
+      default:
+        console.log('\nInvalid Entry. "my-tweets", "spotify-this-song", "movie-this" or "do-what-it-says"');
+    }
+  })
+};
+
+function addToDo(){
+
 };
