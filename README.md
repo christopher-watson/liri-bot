@@ -1,8 +1,9 @@
 # liri-bot
 Christopher Watson
 
-[chriswatson.co](chriswatson.co)
+[chriswatson.co](http://www.chriswatson.co)
 ___
+
 
 ###A Language Interpretation and Recognition Interface
 
