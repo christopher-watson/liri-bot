@@ -40,10 +40,12 @@ SPOTIFY_SECRET=""
 
 * Run the following commands and enjoy!
 
- `my-tweets`
+`node liri.js` ...
 
-`spotify-this-song` `<song name>`
-
-`movie-this` `<movie name>`
-
-`do-what-it-says`
+> `my-tweets`
+> 
+> `spotify-this-song` `<song name>`
+> 
+> `movie-this` `<movie name>`
+> 
+> `do-what-it-says`
