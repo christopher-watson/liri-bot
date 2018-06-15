@@ -20,9 +20,9 @@ In order to use liri-bot you must first clone the liri-bot repo
 
 * Create developer keys for your spotify and twitter accounts
 
-> [Spotify Developer] (https://developer.spotify.com) 
+> Spotify Developer - https://developer.spotify.com
 >
-> [Twitter Developer] (https://developer.twitter.com)
+> Twitter Developer - https://developer.twitter.com
 >
 > Locate the following keys and insert/save to a `.env` file
 
