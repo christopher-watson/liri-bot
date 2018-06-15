@@ -14,15 +14,17 @@ In order to use liri-bot you must first clone the liri-bot repo
 
 **You must have a spotify and twitter account for this application to work**
 
-Run `npm install` at the folder location to install dependencies
+* Clone this repository 
 
-Create developer keys for your spotify and twitter accounts
+* Run `npm install` at the folder location to install dependencies
 
-[Spotify Developer] (https://developer.spotify.com)
+* Create developer keys for your spotify and twitter accounts
 
-[Twitter Developer] (https://developer.twitter.com)
+> [Spotify Developer] (https://developer.spotify.com) 
 
-Locate the following keys and insert/save to a `.env` file
+> [Twitter Developer] (https://developer.twitter.com)
+
+> Locate the following keys and insert/save to a `.env` file
 
 ```javascript
 TWITTER_CONSUMER_KEY=""
@@ -34,14 +36,14 @@ SPOTIFY_ID=""
 SPOTIFY_SECRET=""
 ```
 
-Move `.env` file to liri-bot folder
+* Move `.env` file to liri-bot folder
 
-Run the following commands and enjoy!
+* Run the following commands and enjoy!
 
-- `my-tweets`
+ `my-tweets`
 
-- `spotify-this-song` `<song name>`
+`spotify-this-song` `<song name>`
 
-- `movie-this` `<movie name>`
+`movie-this` `<movie name>`
 
-- `do-what-it-says`
+`do-what-it-says`
