@@ -1,11 +1,8 @@
 # liri-bot
-Christopher Watson
 
-[chriswatson.co](http://www.chriswatson.co)
-___
+_Christopher Watson_
 
-
-###A Language Interpretation and Recognition Interface
+A Language Interpretation and Recognition Interface
 
 Liri-bot was created as a node command line tool to browse music, movies and social media
 
